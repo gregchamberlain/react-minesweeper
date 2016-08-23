@@ -32,6 +32,14 @@ class Game extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.gridSize !== this.props.gridSize || prevProps.numBombs !== this.props.numBombs) {
+      console.log("Updated!");
+      this.restartGame();
+      // this.setState({baord: new Minesweeper.Board(nextProps.gridSize, nextProps.numBombs)})
+    }
+  }
+
   restartGame() {
     let { gridSize, numBombs } = this.props;
     this.setState({board: new Minesweeper.Board(gridSize, numBombs)});
