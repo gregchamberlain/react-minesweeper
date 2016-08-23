@@ -1,0 +1,85 @@
+
+
+body {
+  font-family: Arial;
+}
+
+.game-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game-wrapper h1 {
+  margin: 60px;
+}
+
+.row {
+  display: flex;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #ccc;
+  border: 2px outset gray;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5)
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid black;
+  width: 200px;
+  height: 150px;
+}
+
+.modal-content h3 {
+  margin: 0px;
+  margin-bottom: 10px;
+}
+
+.explored {
+  background-color: #aaa;
+  border: 2px inset gray;
+}
+
+.flag, .bomb {
+  color: red;
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+}
+
+.undo {
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+  margin: 20px;
+  border: 1px solid #ccc;
+  background: #aae;
+  font-size: 20px;
+  border-radius: 10px;
+}
