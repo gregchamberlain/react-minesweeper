@@ -42,7 +42,10 @@ class Game extends Component {
 
   restartGame() {
     let { gridSize, numBombs } = this.props;
-    this.setState({board: new Minesweeper.Board(gridSize, numBombs)});
+    this.setState({
+      board: new Minesweeper.Board(gridSize, numBombs),
+      oldBoard: null,
+    });
   }
 
   render() {
@@ -53,8 +56,8 @@ class Game extends Component {
     return (
       <div className="game-wrapper">
         <div className="game-header">
-          <h1>Minesweeper</h1>
-          <button onClick={this.undo.bind(this)} className="undo">Undo</button>
+          <h1>React Minesweeper</h1>
+          <button onClick={this.undo.bind(this)} className="undo" disabled={this.state.oldBoard ? false : true}>Undo</button>
         </div>
         <Board board={this.state.board.grid} updateGame={this.updateGame.bind(this)}/>
         { won || lost ? <Modal won={won} undo={this.undo.bind(this)} restart={this.restartGame.bind(this)}/> : null }

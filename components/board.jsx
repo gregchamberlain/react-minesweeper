@@ -13,7 +13,7 @@ class Board  extends Component{
     ));
 
     return (
-      <div>
+      <div className="board-wrapper">
         {rows}
       </div>
     );

@@ -52,7 +52,7 @@
 	
 	var _reactDom = __webpack_require__(34);
 	
-	var _App = __webpack_require__(177);
+	var _App = __webpack_require__(172);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -21430,15 +21430,92 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _minesweeper = __webpack_require__(173);
+	var _game = __webpack_require__(173);
+	
+	var _game2 = _interopRequireDefault(_game);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var App = function (_Component) {
+	  _inherits(App, _Component);
+	
+	  function App() {
+	    _classCallCheck(this, App);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
+	
+	    _this.state = {
+	      gridSize: 20,
+	      numBombs: 20
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(App, [{
+	    key: 'generateNewGame',
+	    value: function generateNewGame() {
+	      var gridSize = parseInt(this.refs.sizeInput.value);
+	      var numBombs = parseInt(this.refs.bombCount.value);
+	      if (!gridSize || !numBombs || gridSize * gridSize <= numBombs) {
+	        console.error("You cant do that!");
+	        return;
+	      }
+	      this.setState({ gridSize: gridSize, numBombs: numBombs });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('input', { type: 'number', ref: 'sizeInput' }),
+	        _react2.default.createElement('input', { type: 'number', ref: 'bombCount' }),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.generateNewGame.bind(this) },
+	          'Generate Game'
+	        ),
+	        _react2.default.createElement(_game2.default, { gridSize: this.state.gridSize, numBombs: this.state.numBombs })
+	      );
+	    }
+	  }]);
+	
+	  return App;
+	}(_react.Component);
+	
+	exports.default = App;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _minesweeper = __webpack_require__(174);
 	
 	var Minesweeper = _interopRequireWildcard(_minesweeper);
 	
-	var _board = __webpack_require__(174);
+	var _board = __webpack_require__(175);
 	
 	var _board2 = _interopRequireDefault(_board);
 	
-	var _modal = __webpack_require__(176);
+	var _modal = __webpack_require__(177);
 	
 	var _modal2 = _interopRequireDefault(_modal);
 	
@@ -21508,7 +21585,10 @@
 	      var gridSize = _props.gridSize;
 	      var numBombs = _props.numBombs;
 	
-	      this.setState({ board: new Minesweeper.Board(gridSize, numBombs) });
+	      this.setState({
+	        board: new Minesweeper.Board(gridSize, numBombs),
+	        oldBoard: null
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -21526,11 +21606,11 @@
 	          _react2.default.createElement(
 	            'h1',
 	            null,
-	            'Minesweeper'
+	            'React Minesweeper'
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.undo.bind(this), className: 'undo' },
+	            { onClick: this.undo.bind(this), className: 'undo', disabled: this.state.oldBoard ? false : true },
 	            'Undo'
 	          )
 	        ),
@@ -21551,7 +21631,7 @@
 	exports.default = Game;
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21697,7 +21777,7 @@
 	};
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21712,7 +21792,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _tile = __webpack_require__(175);
+	var _tile = __webpack_require__(176);
 	
 	var _tile2 = _interopRequireDefault(_tile);
 	
@@ -21751,7 +21831,7 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'board-wrapper' },
 	        rows
 	      );
 	    }
@@ -21763,7 +21843,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21798,14 +21878,24 @@
 	  _createClass(Tile, [{
 	    key: "handleClick",
 	    value: function handleClick(e) {
-	      this.props.updateGame(this.props.tile, e.altKey);
+	      this.props.updateGame(this.props.tile, false);
+	    }
+	  }, {
+	    key: "handleRightClick",
+	    value: function handleRightClick(e) {
+	      e.preventDefault();
+	      this.props.updateGame(this.props.tile, true);
 	    }
 	  }, {
 	    key: "render",
 	    value: function render() {
 	      var tile = this.props.tile;
 	
-	      var content = "";
+	      var content = _react2.default.createElement(
+	        "span",
+	        null,
+	        "  "
+	      );
 	      var className = "tile";
 	      if (tile.bombed && tile.explored) {
 	        className += " explored bomb";
@@ -21816,12 +21906,19 @@
 	      } else if (tile.explored) {
 	        className += " explored";
 	        var bombs = tile.adjacentBombCount();
-	        content = bombs === 0 ? "" : bombs;
+	        content = bombs === 0 ? _react2.default.createElement(
+	          "span",
+	          null,
+	          "  "
+	        ) : bombs;
 	      }
 	
 	      return _react2.default.createElement(
 	        "div",
-	        { className: className, onClick: this.handleClick.bind(this) },
+	        {
+	          className: className,
+	          onClick: this.handleClick.bind(this),
+	          onContextMenu: this.handleRightClick.bind(this) },
 	        content
 	      );
 	    }
@@ -21833,7 +21930,7 @@
 	exports.default = Tile;
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21878,83 +21975,6 @@
 	};
 	
 	exports.default = Modal;
-
-/***/ },
-/* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _game = __webpack_require__(172);
-	
-	var _game2 = _interopRequireDefault(_game);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var App = function (_Component) {
-	  _inherits(App, _Component);
-	
-	  function App() {
-	    _classCallCheck(this, App);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
-	
-	    _this.state = {
-	      gridSize: 20,
-	      numBombs: 20
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(App, [{
-	    key: 'generateNewGame',
-	    value: function generateNewGame() {
-	      var gridSize = parseInt(this.refs.sizeInput.value);
-	      var numBombs = parseInt(this.refs.bombCount.value);
-	      if (!gridSize || !numBombs || gridSize * gridSize <= numBombs) {
-	        console.error("You cant do that!");
-	        return;
-	      }
-	      this.setState({ gridSize: gridSize, numBombs: numBombs });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('input', { type: 'number', ref: 'sizeInput' }),
-	        _react2.default.createElement('input', { type: 'number', ref: 'bombCount' }),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.generateNewGame.bind(this) },
-	          'Generate Game'
-	        ),
-	        _react2.default.createElement(_game2.default, { gridSize: this.state.gridSize, numBombs: this.state.numBombs })
-	      );
-	    }
-	  }]);
-	
-	  return App;
-	}(_react.Component);
-	
-	exports.default = App;
 
 /***/ }
 /******/ ]);

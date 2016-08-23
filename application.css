@@ -6,8 +6,6 @@ body {
 
 .game-wrapper {
   display: flex;
-  align-items: center;
-  flex-direction: column;
   justify-content: center;
 }
 
@@ -17,18 +15,19 @@ body {
 
 .row {
   display: flex;
+  flex-grow: 1;
 }
 
 .tile {
+  cursor: pointer;
   display: flex;
+  flex-grow: 1;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
   background-color: #ccc;
   border: 2px outset gray;
-  box-sizing: border-box;
-  font-size: 20px;
+  /*box-sizing: border-box;*/
+  font-size: 80%;
 }
 
 .modal-backdrop {
@@ -66,11 +65,23 @@ body {
 
 .flag, .bomb {
   color: red;
+  font-size: 50%;
+}
+
+.board-wrapper {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  width: 50vw;
+  height: 50vw;
+  background: #cc0;
 }
 
 .game-header {
   display: flex;
-  align-items: center;
 }
 
 .undo {
@@ -82,4 +93,5 @@ body {
   background: #aae;
   font-size: 20px;
   border-radius: 10px;
+  outline: none;
 }
